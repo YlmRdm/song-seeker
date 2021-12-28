@@ -1,4 +1,4 @@
-# song-seeker
+# Song Seeker
 It is a web based track search tool using Spotify API.
 
 You can also see the live demo:
