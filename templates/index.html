@@ -1,0 +1,71 @@
+<html>
+<head>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" integrity="sha512-EZLkOqwILORob+p0BXZc+Vm3RgJBOe1Iq/0fiI7r/wJgzOFZMlsqTa29UEl6v6U6gsV4uIpsNZoV32YZqrCRCQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"/>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+	<div class="container content">
+		<div class="row">
+			<div class="twelve columns">
+				<h1>Song Seeker</h1>
+			</div>
+		</div>
+		<form class="form" action = "/" method = "post">
+			<div class="row">
+				<div class="ten columns">	
+					<p class="text_box">
+						<input class="textbox_input" type="text" placeholder="Search an artist or song" name = "search_name" />
+					</p>
+				</div>
+				<div class="two columns">
+					<input class="submit_button searchbtn" type = "submit" value = "search" />
+				</div>
+			</div>
+		</form>
+
+		{% if tracks %}
+		<h5>Top 10 Tracks</h5>
+		{% for track in tracks %}
+		<div class="tile row">
+			<div class="four columns">
+				<img class="album" src={{track['album']['images'][1]['url']}}>
+			</div>
+
+			<div class="eight columns songinfo">
+				<p class="song_name">{{track['name']}}</p>
+				<p class="artist_name">{{track['artists'][0]['name']}}</p>
+
+				<audio controls>
+					<source src="{{track['preview_url']}}" type="">
+				</audio>
+				<div class="row">
+					<p class="audio_link four columns">
+						<a href="{{track['external_urls']['spotify']}}" target="_blank">
+							<img src="https://logodownload.org/wp-content/uploads/2020/03/listen-on-spotify.png">
+						</a>
+					</p>
+					<figure class="two columns popularity">
+						<figcaption>
+							<span>{{track['popularity']}}</span>  <i class="fa-solid fa-fire fa-xl"></i>
+						</figcaption>
+					</figure>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+		{% endif %}
+	</div>
+	<footer class="row footer">
+		<p class="twelve columns">
+			<a href="https://github.com/ylmrdm/song-seeker">
+			<span class="git_icon"><i class="fab fa-github"></i></span>
+			</a>
+		</p>
+	</footer>
+</body>
+</html>
